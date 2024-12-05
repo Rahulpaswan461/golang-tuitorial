@@ -12,7 +12,13 @@ func formHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Fprintf(w, "Form uploaded successfully !!!")
+	name := r.FormValue("name")
+	email := r.FormValue("email")
+
+	fmt.Fprintf(w, "name = %s\n", name)
+	fmt.Fprintf(w, "email = %s\n", email)
 }
+
 func helloHanlder(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/hello" {
 		http.Error(w, "404 not found", http.StatusNotFound)
@@ -24,6 +30,7 @@ func helloHanlder(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintf(w, "Hello call is done here !!!")
 }
+
 func main() {
 	fileServer := http.FileServer(http.Dir("./static"))
 	http.Handle("/", fileServer) //to handle the root folder directly returning the index.html
